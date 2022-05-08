@@ -2,8 +2,7 @@
   font-family: "Arial";
   /* try to find fonts locally */
   src: local("arial"),
-    /* if no load from */ url("../../assets/fonts/arial.ttf") format("truetype");
-
+    /* if no load from */ url("./assets/fonts/arial.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
 }
@@ -11,7 +10,7 @@
 :root {
   --base-width: 6vw;
   --max-width: 60px;
-  --base-margin: 5px;
+  --base-margin: 4px;
   --button-gap: calc(var(--base-margin) * 2);
   --full-screen-padding: 40px;
   --background-global: #dddddd;
@@ -81,12 +80,12 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Helvetica", sans-serif;
+  font-family: "Arial", sans-serif;
   font-weight: 400;
   color: var(--color-dark);
 }
 body {
-  font-family: "Helvetica", sans-serif;
+  font-family: "Arial", sans-serif;
   color: var(--color-dark-l);
   font-size: 15px;
   font-weight: 400;
@@ -94,9 +93,14 @@ body {
   background: var(--color-light);
   height: 100%;
   min-width: 320px;
+  transition: .5s ease-in-out;
 }
 body.dark {
   background: var(--color-dark);
+  transition: .5s ease-in-out;
+}
+body.dark .text__container{
+  color: var(--color-light);
 }
 body.dark .keyboard__container {
   background: var(--color-dark-l);
@@ -131,26 +135,58 @@ body.dark .key {
 .button__theme {
   width: var(--base-width);
   height: calc(var(--base-width) / 3);
-  border-radius: var(--button-gap);
+  border-radius: calc(var(--base-width) / 3);
   background: var(--gradient);
   margin: var(--base-margin);
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s ease-in-out;
+}
+.button__theme::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: calc(var(--base-width) / 3 + 4px);
+  height: calc(var(--base-width) / 3 + 4px);
+  background: var(--color-light-aqua);
+  border-radius: 50%;
+  transition: 0.5s ease-in-out;
+}
+.button__theme.active {
+  background: var(--color-dark);
+  transition: 0.5s ease-in-out;
+}
+.button__theme.active::after {
+  /*right: 0;*/
+  left: var(--base-width);
+  transform: translateX(-95%);
+  transition: 0.5s ease-in-out;
 }
 .text {
   /*flex: 1 1 auto;*/
-  width: 90%;
-  /*display: flex;
-    justify-content: center;*/
+  max-width: 90%;
+  width: 1200px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }
 .text__container {
-  max-height: 300px;
+  display: block;
+  width: 100%;
+  min-height: 220px;
+  /*max-height: calc(100vh - 500px);*/
   text-align: justify;
+  font-size: 18px;
   padding: 20px;
   margin: 20px;
   overflow-x: hidden;
   overflow-y: auto;
   /*box-shadow: inset 2px 2px 4px rgba(16, 227, 255, 0.3);*/
   letter-spacing: 0.2rem;
-
+  text-align: left;
+background: transparent;
+color: var(--color-dark-l);
   /* customize scrollbar */
   scrollbar-width: thin;
   scrollbar-color: var(--color-dark-l) rgba(0, 0, 0, 0.1);

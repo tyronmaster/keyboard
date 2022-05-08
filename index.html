@@ -1,144 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Keyboard</title>
+  </head>
 
-<head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="./style.css">
-   <title>Keyboard</title>
-</head>
-
-<body class=""> <!--dark-->
-   <main class="container">
+  <body class="dark">
+    <!--dark-->
+    <!--
+    <main class="container">
       <section class="settings">
-         <div class="settings__container">
-            <div class="button__calc"></div>
-            <!--CalcMode-->
-            <div class="button__theme"></div>
-            <!--Theme-->
-         </div>
+        <div class="settings__container">
+           <div class="button__calc"></div>
+          
+          <div class="button__theme"></div>
+          
+        </div>
       </section>
       <section class="text">
-         <div class="text__container">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam commodi similique hic facere eveniet
+        <textarea class="text__container">
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam commodi similique hic facere eveniet
             sint molestiae officia, esse quisquam rem veniam numquam quae cumque unde voluptatibus dignissimos!
-            Molestias, aliquam aliquid.
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quae architecto fugit ducimus quia
+            Molestias, aliquam aliquid. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam quae architecto fugit ducimus quia
             dolorum voluptatem fugiat facere molestias distinctio tempore ut at, vel ad reiciendis, dolore aliquid ipsam
             rem.
-         </div>
+         </textarea
+        >
       </section>
       <section class="keyboard">
-         <div class="keyboard__container">
-            <div class="key">`</div>
-            <div class="key">1</div>
-            <div class="key">2</div>
-            <div class="key">3</div>
-            <div class="key">4</div>
-            <div class="key">5</div>
-            <div class="key">6</div>
-            <div class="key">7</div>
-            <div class="key">8</div>
-            <div class="key">0</div>
-            <div class="key">-</div>
-            <div class="key">=</div>
-            <div class="key key__wide backspace">
-               <span>Backspace</span>
-               <svg width="21" height="10" viewBox="0 0 21 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                     d="M6.81818 0L0 5L6.81818 10H20.7071V0H6.81818ZM16.7172 7.62626C16.9697 7.87879 16.9697 8.23232 16.7172 8.43434C16.4646 8.63636 16.1111 8.68687 15.9091 8.43434L13.3333 5.85859L10.7576 8.43434C10.5051 8.68687 10.1515 8.68687 9.9495 8.43434C9.74748 8.18182 9.69697 7.82828 9.9495 7.62626L12.5253 5.05051L9.9495 2.47475C9.69697 2.22222 9.69697 1.86869 9.9495 1.66667C10.202 1.46465 10.5556 1.41414 10.7576 1.66667L13.3333 4.24242L15.9091 1.66667C16.1616 1.41414 16.5152 1.41414 16.7172 1.66667C16.9192 1.91919 16.9697 2.27273 16.7172 2.47475L14.1414 5L16.7172 7.62626Z"
-                     fill="#231F20" />
-               </svg>
+        <div class="keyboard__container">
+          <div class="key">`</div>
+          <div class="key">1</div>
+          <div class="key">2</div>
+          <div class="key">3</div>
+          <div class="key">4</div>
+          <div class="key">5</div>
+          <div class="key">6</div>
+          <div class="key">7</div>
+          <div class="key">8</div>
+          <div class="key">0</div>
+          <div class="key">-</div>
+          <div class="key">=</div>
+          <div class="key key__wide backspace">
+            <span>Backspace</span>
+            <svg
+              width="21"
+              height="10"
+              viewBox="0 0 21 10"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.81818 0L0 5L6.81818 10H20.7071V0H6.81818ZM16.7172 7.62626C16.9697 7.87879 16.9697 8.23232 16.7172 8.43434C16.4646 8.63636 16.1111 8.68687 15.9091 8.43434L13.3333 5.85859L10.7576 8.43434C10.5051 8.68687 10.1515 8.68687 9.9495 8.43434C9.74748 8.18182 9.69697 7.82828 9.9495 7.62626L12.5253 5.05051L9.9495 2.47475C9.69697 2.22222 9.69697 1.86869 9.9495 1.66667C10.202 1.46465 10.5556 1.41414 10.7576 1.66667L13.3333 4.24242L15.9091 1.66667C16.1616 1.41414 16.5152 1.41414 16.7172 1.66667C16.9192 1.91919 16.9697 2.27273 16.7172 2.47475L14.1414 5L16.7172 7.62626Z"
+                fill="#231F20"
+              />
+            </svg>
+          </div>
 
-            </div>
+          <div class="break"></div>
+          <div class="key key__halfwide">Tab</div>
+          <div class="key">q</div>
+          <div class="key">w</div>
+          <div class="key">e</div>
+          <div class="key">r</div>
+          <div class="key">t</div>
+          <div class="key">y</div>
+          <div class="key">u</div>
+          <div class="key">i</div>
+          <div class="key">o</div>
+          <div class="key">p</div>
+          <div class="key">[</div>
+          <div class="key">]</div>
+          <div class="key key__halfwide">\</div>
 
-            <div class="break"></div>
-            <div class="key key__halfwide">Tab</div>
-            <div class="key">q</div>
-            <div class="key">w</div>
-            <div class="key">e</div>
-            <div class="key">r</div>
-            <div class="key">t</div>
-            <div class="key">y</div>
-            <div class="key">u</div>
-            <div class="key">i</div>
-            <div class="key">o</div>
-            <div class="key">p</div>
-            <div class="key">[</div>
-            <div class="key">]</div>
-            <div class="key key__halfwide">\</div>
+          <div class="break"></div>
+          <div class="key key__wide">CapsLock</div>
+          <div class="key">a</div>
+          <div class="key">s</div>
+          <div class="key">d</div>
+          <div class="key">f</div>
+          <div class="key">g</div>
+          <div class="key">h</div>
+          <div class="key">j</div>
+          <div class="key">k</div>
+          <div class="key">l</div>
+          <div class="key">;</div>
+          <div class="key">'</div>
+          <div class="key key__wide">Enter</div>
 
-            <div class="break"></div>
-            <div class="key key__wide">CapsLock</div>
-            <div class="key">a</div>
-            <div class="key">s</div>
-            <div class="key">d</div>
-            <div class="key">f</div>
-            <div class="key">g</div>
-            <div class="key">h</div>
-            <div class="key">j</div>
-            <div class="key">k</div>
-            <div class="key">l</div>
-            <div class="key">;</div>
-            <div class="key">'</div>
-            <div class="key key__wide">Enter</div>
+          <div class="break"></div>
+          <div class="key key__halfwide">Shift</div>
+          <div class="key">z</div>
+          <div class="key">x</div>
+          <div class="key">c</div>
+          <div class="key">v</div>
+          <div class="key">b</div>
+          <div class="key">n</div>
+          <div class="key">m</div>
+          <div class="key">,</div>
+          <div class="key">.</div>
+          <div class="key">/</div>
+          <div class="key arrowkey keyup">
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.56699 0.75C3.75944 0.416667 4.24056 0.416667 4.43301 0.75L7.89711 6.75C8.08956 7.08333 7.849 7.5 7.4641 7.5H0.535898C0.150998 7.5 -0.0895646 7.08333 0.102885 6.75L3.56699 0.75Z"
+                fill="#C4C4C4"
+              />
+            </svg>
+          </div>
+          <div class="key">Shift</div>
 
-            <div class="break"></div>
-            <div class="key key__halfwide">Shift</div>
-            <div class="key">z</div>
-            <div class="key">x</div>
-            <div class="key">c</div>
-            <div class="key">v</div>
-            <div class="key">b</div>
-            <div class="key">n</div>
-            <div class="key">m</div>
-            <div class="key">,</div>
-            <div class="key">.</div>
-            <div class="key">/</div>
-            <div class="key arrowkey keyup">
-               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                     d="M3.56699 0.75C3.75944 0.416667 4.24056 0.416667 4.43301 0.75L7.89711 6.75C8.08956 7.08333 7.849 7.5 7.4641 7.5H0.535898C0.150998 7.5 -0.0895646 7.08333 0.102885 6.75L3.56699 0.75Z"
-                     fill="#C4C4C4" />
-               </svg>
-            </div>
-            <div class="key">Shift</div>
-
-            <div class="break"></div>
-            <div class="key key__halfwide">Ctrl</div>
-            <div class="key">Alt</div>
-            <div class="key">En</div>
-            <div class="key key__extrawide">Space</div>
-            <div class="key">Alt</div>
-            <div class="key key__halfwide">Ctrl</div>
-            <div class="key arrowkey keyleft">
-               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                     d="M3.56699 0.75C3.75944 0.416667 4.24056 0.416667 4.43301 0.75L7.89711 6.75C8.08956 7.08333 7.849 7.5 7.4641 7.5H0.535898C0.150998 7.5 -0.0895646 7.08333 0.102885 6.75L3.56699 0.75Z"
-                     fill="#C4C4C4" />
-               </svg>
-            </div>
-            <div class="key arrowkey keydown">
-               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                     d="M3.56699 0.75C3.75944 0.416667 4.24056 0.416667 4.43301 0.75L7.89711 6.75C8.08956 7.08333 7.849 7.5 7.4641 7.5H0.535898C0.150998 7.5 -0.0895646 7.08333 0.102885 6.75L3.56699 0.75Z"
-                     fill="#C4C4C4" />
-               </svg>
-            </div>
-            <div class="key arrowkey keyright">
-               <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                     d="M3.56699 0.75C3.75944 0.416667 4.24056 0.416667 4.43301 0.75L7.89711 6.75C8.08956 7.08333 7.849 7.5 7.4641 7.5H0.535898C0.150998 7.5 -0.0895646 7.08333 0.102885 6.75L3.56699 0.75Z"
-                     fill="#C4C4C4" />
-               </svg>
-            </div>
-
-         </div>
+          <div class="break"></div>
+          <div class="key key__halfwide">Ctrl</div>
+          <div class="key">Alt</div>
+          <div class="key">En</div>
+          <div class="key key__extrawide">Space</div>
+          <div class="key">Alt</div>
+          <div class="key key__halfwide">Ctrl</div>
+          <div class="key arrowkey keyleft">
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.56699 0.75C3.75944 0.416667 4.24056 0.416667 4.43301 0.75L7.89711 6.75C8.08956 7.08333 7.849 7.5 7.4641 7.5H0.535898C0.150998 7.5 -0.0895646 7.08333 0.102885 6.75L3.56699 0.75Z"
+                fill="#C4C4C4"
+              />
+            </svg>
+          </div>
+          <div class="key arrowkey keydown">
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.56699 0.75C3.75944 0.416667 4.24056 0.416667 4.43301 0.75L7.89711 6.75C8.08956 7.08333 7.849 7.5 7.4641 7.5H0.535898C0.150998 7.5 -0.0895646 7.08333 0.102885 6.75L3.56699 0.75Z"
+                fill="#C4C4C4"
+              />
+            </svg>
+          </div>
+          <div class="key arrowkey keyright">
+            <svg
+              width="8"
+              height="8"
+              viewBox="0 0 8 8"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.56699 0.75C3.75944 0.416667 4.24056 0.416667 4.43301 0.75L7.89711 6.75C8.08956 7.08333 7.849 7.5 7.4641 7.5H0.535898C0.150998 7.5 -0.0895646 7.08333 0.102885 6.75L3.56699 0.75Z"
+                fill="#C4C4C4"
+              />
+            </svg>
+          </div>
+        </div>
       </section>
-   </main>
-
-   <script src="./index.js"></script>
-</body>
-
+    </main>
+   -->
+    <script src="./index.js"></script>
+  </body>
 </html>
