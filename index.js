@@ -395,7 +395,7 @@ properties = {
     }
 
     drawLanguageKeys(){
-        lang = this.properties.language;
+        
         const parentThis = this;
         let keysLang;
         this.properties.language == "en" ? keysLang = this.keysData.keysEn : keysLang = this.keysData.keysRu;
@@ -405,6 +405,9 @@ properties = {
                 item.textContent = parentThis.properties.capsLock ? keysLang[index].toUpperCase() : keysLang[index].toLowerCase();
             }
         });
+        lang = this.properties.language;
+        console.log(this.properties.language);
+        console.log(lang);
     }
 
     toggleCapsLock(){
@@ -474,6 +477,7 @@ properties = {
 };
 
 window.addEventListener("DOMContentLoaded", function () {
+    getLocalStorage();
     let keyboard = new Keyboard(lang);
     keyboard.init();
   });
