@@ -93,13 +93,13 @@ body {
   background: var(--color-light);
   height: 100%;
   min-width: 320px;
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 body.dark {
   background: var(--color-dark);
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
-body.dark .text__container{
+body.dark .text__container {
   color: var(--color-light);
 }
 body.dark .keyboard__container {
@@ -153,6 +153,10 @@ body.dark .key {
   border-radius: 50%;
   transition: 0.5s ease-in-out;
 }
+.button__theme:hover::after,
+.button__theme.active:hover::after{
+  background: var(--color-dark-l);
+}
 .button__theme.active {
   background: var(--color-dark);
   transition: 0.5s ease-in-out;
@@ -185,16 +189,18 @@ body.dark .key {
   /*box-shadow: inset 2px 2px 4px rgba(16, 227, 255, 0.3);*/
   letter-spacing: 0.2rem;
   text-align: left;
-background: transparent;
-color: var(--color-dark-l);
+  background: transparent;
+  color: var(--color-dark-l);
   /* customize scrollbar */
   scrollbar-width: thin;
   scrollbar-color: var(--color-dark-l) rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--color-light);
+  border: 1px solid var(--color-dark-l);
   border-radius: var(--base-margin);
+  transition: 0.5s ease-in-out;
 }
 .text__container:hover {
-  border: 1px solid var(--color-dark);
+  border: 1px solid var(--color-light-aqua);
+  transition: 0.5s ease-in-out;
 }
 /* customize scrollbar for -webkit browsers*/
 .text__container::-webkit-scrollbar {
