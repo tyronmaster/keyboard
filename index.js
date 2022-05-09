@@ -132,9 +132,6 @@ properties = {
         });
         this.keyDown();
         this.keyUp();
-          //console.log(this.elements.keys);
-        //console.log(this.elements.textContainer);
-        //console.log(parentThis.elements.keys[28]);
     }
 
     createKeys(){
@@ -209,15 +206,12 @@ properties = {
                     });
                 break;
 
-                    // NOT FINISHED
                 case "caps":
                     keyElement.classList.add("key__wide");
                     keyElement.textContent = "CapsLock";
                     keyElement.addEventListener("click", function(){
                         parentThis.toggleCapsLock();
                         this.classList.toggle("active", parentThis.properties.capsLock);
-                        
-                        //console.log(parentThis.properties.capsLock);
                     });
                 break;
                         
@@ -395,8 +389,6 @@ properties = {
         return fragment;
     }
 
-
-
     addText(currentValue){
         this.elements.textContainer.focus();
         this.elements.textContainer.value = currentValue;
@@ -404,84 +396,15 @@ properties = {
 
     drawLanguageKeys(){
         lang = this.properties.language;
-
         const parentThis = this;
+        let keysLang;
+        this.properties.language == "en" ? keysLang = this.keysData.keysEn : keysLang = this.keysData.keysRu;
 
-        this.properties.language == "en" ? this.properties.language == "ru" : this.properties.language == "en";
-    
-        let _iteratorNormalCompletion4 = true;
-        let _didIteratorError4 = false;
-        let _iteratorError4 = undefined;
-    
-        try {
-          let _loop2 = function _loop2() {
-            let key = _step4.value;
-            let keyFilters = key.classList.contains("keyboard-lang");
-    
-            if (keyFilters && !parentThis.properties.language) {
-              parentThis.elements.tempArr.push(key.textContent);
-    
-              let indexTempArr = parentThis.elements.tempArr.indexOf(key.textContent);
-    
-              parentThis.keysData.keysRu.filter(function (item) {
-                return item.length < 2;
-              }).forEach(function (elem, index) {
-                indexTempArr === index ? key.textContent = elem : key.textContent;
-    
-                if (parentThis.properties.capsLock) {
-                  key.textContent = key.textContent.toUpperCase();
-                } else if (parentThis.properties.shiftKey) {
-                  key.textContent = key.textContent.toUpperCase();
-                  parentThis.toggleShiftKey();
-                  parentThis.properties.shiftKey = !parentThis.properties.shiftKey;
-    
-                  parentThis.elements.keys[41].classList.remove("active");
-                }
-              });
-    
-              parentThis.elements.tempArr.length === 47 ? parentThis.elements.tempArr = [] : parentThis.elements.tempArr;
-            } else if (keyFilters && parentThis.properties.language) {
-              parentThis.elements.tempArr.push(key.textContent);
-    
-              let _indexTempArr = parentThis.elements.tempArr.indexOf(key.textContent);
-    
-              parentThis.keysData.keysEn.filter(function (item) {
-                return item.length < 2;
-              }).forEach(function (elem, index) {
-                _indexTempArr === index ? key.textContent = elem : key.textContent;
-    
-                if (parentThis.properties.capsLock) {
-                  key.textContent = key.textContent.toUpperCase();
-                } else if (parentThis.properties.shiftKey) {
-                  key.textContent = key.textContent.toUpperCase();
-                  parentThis.toggleShiftKey();
-                  parentThis.properties.shiftKey = !parentThis.properties.shiftKey;
-    
-                  parentThis.elements.keys[41].classList.remove("active");
-                }
-              });
-    
-              parentThis.elements.tempArr.length === 47 ? parentThis.elements.tempArr = [] : parentThis.elements.tempArr;
+        this.elements.keys.forEach( (item, index) => {
+            if(item.classList.contains("keyboard-lang")){
+                item.textContent = parentThis.properties.capsLock ? keysLang[index].toUpperCase() : keysLang[index].toLowerCase();
             }
-          };
-    
-          for (var _iterator4 = parentThis.elements.keys[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-            _loop2();
-          }
-        } catch (err) {
-          _didIteratorError4 = true;
-          _iteratorError4 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-              _iterator4["return"]();
-            }
-          } finally {
-            if (_didIteratorError4) {
-              throw _iteratorError4;
-            }
-          }
-        }
+        });
     }
 
     toggleCapsLock(){
@@ -494,63 +417,6 @@ properties = {
             else if(item.classList.contains("keyboard-alphabet"))
             item.textContent = item.textContent.toLowerCase();
         });
-
-        /*
-        if (this.properties.shiftKey) {
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-      
-            try {
-              for (var _iterator = this.elements.keys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var key = _step.value;
-      
-                if (key.childElementCount === 0 && key.classList.contains("keyboard-alphabet")) {
-                  key.textContent = this.properties.capsLock ? key.textContent.toLowerCase() : key.textContent.toUpperCase();
-                }
-              }
-            } catch (err) {
-              _didIteratorError = true;
-              _iteratorError = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-                  _iterator["return"]();
-                }
-              } finally {
-                if (_didIteratorError) {
-                  throw _iteratorError;
-                }
-              }
-            }
-          } else {
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
-      
-            try {
-              for (var _iterator2 = this.elements.keys[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                var _key = _step2.value;
-      
-                if (_key.childElementCount === 0 && _key.classList.contains("keyboard-alphabet")) {
-                  _key.textContent = this.properties.capsLock ? _key.textContent.toUpperCase() : _key.textContent.toLowerCase();
-                }
-              }
-            } catch (err) {
-              _didIteratorError2 = true;
-              _iteratorError2 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-                  _iterator2["return"]();
-                }
-              } finally {
-                if (_didIteratorError2) {
-                  throw _iteratorError2;
-                }
-              }
-            }
-          }*/
     }
 
     toggleShiftKey(){
@@ -575,14 +441,9 @@ properties = {
                         parentThis.toggleShiftKey();    
                     break;
 
-
                 }
-                /*if(e.code == keyAttribute){
-                    item.classList.add("active");
-                }*/
             })
         })
-
     }
 
     keyUp(){
