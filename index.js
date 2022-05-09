@@ -191,7 +191,8 @@ properties = {
                 case "tab":
                     keyElement.classList.add("key__halfwide");
                     keyElement.textContent = "Tab";
-                    keyElement.addEventListener("click", function(){
+                    keyElement.addEventListener("click", function(e){
+                        e.preventDefault();
                         const startOfSelection = parentThis.elements.textContainer.selectionStart;
                         const endOfSelection = parentThis.elements.textContainer.selectionEnd;
                         
@@ -366,7 +367,7 @@ properties = {
                         
                         parentThis.properties.cursorPosition = startOfSelection;
                         if (startOfSelection == endOfSelection) {
-                            parentThis.properties.value = parentThis.properties.value.substring(0, parentThis.properties.cursorPosition) + keyElement.textContent + parentThis.properties.value.substring(parentThis.properties.cursorPosition);
+                            parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + keyElement.textContent + parentThis.properties.value.substring(startOfSelection);
                         } else {
                             parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + keyElement.textContent + parentThis.properties.value.substring(endOfSelection);
                         }
@@ -559,6 +560,7 @@ properties = {
 
     keyDown(){
         const parentThis = this;
+        this.elements.textContainer.focus();
 
         document.addEventListener("keydown", (e) => {
             parentThis.elements.keys.forEach( item => {
@@ -585,10 +587,11 @@ properties = {
 
     keyUp(){
         const parentThis = this;
-
-
+        
         document.addEventListener("keyup", (e) => {
             console.log(e.code);
+            console.log(e.key);
+            this.elements.textContainer.focus();
             parentThis.elements.keys.forEach( item => {
                 const keyAttribute = item.getAttribute("data");
                 const alphabetItem = item.classList.contains("keyboard-alphabet");
@@ -596,15 +599,15 @@ properties = {
                 if( e.code == keyAttribute)
                     item.classList.remove("active");
 
-                if(e.code == keyAttribute && alphabetItem)
+                if(e.code == keyAttribute && (alphabetItem || keyAttribute == "Space"))
                     parentThis.properties.value += e.key;
 
-                if( e.code == keyAttribute && keyAttribute === "CapsLock")
-                    {parentThis.toggleCapsLock();
+                if( e.code == keyAttribute && keyAttribute === "CapsLock"){
+                    parentThis.toggleCapsLock();
                     parentThis.elements.keys[28].classList.toggle("active", parentThis.properties.capsLock);
-                    } 
-            })
-        })
+                }
+            });
+        });
     }
 
 };
