@@ -83,11 +83,21 @@ class Keyboard {
     }
 
 keysData = {
-    keysCode: ["Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspace", "Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash", "CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter", "ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight", "ControlLeft", "", "", "", "AltLeft", "Space", "AltRight", "ControlRight", "ArrowLeft", "ArrowDown", "ArrowRight", ""],
-    keysEn: ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace", "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\", "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter", "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "arrow-up", "right-shift", "ctrl", "close", "micro", "lang", "alt", "spacebar", "alt", "ctrl", "arrow-left", "arrow-down", "arrow-right", "mute"],
-    keysRu: ["ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace", "tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "\\", "caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "enter", "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "arrow-up", "right-shift", "ctrl", "close", "micro", "lang", "alt", "spacebar", "alt", "ctrl", "arrow-left", "arrow-down", "arrow-right", "mute"],
-    shiftKey: ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "{", "}", "|", ":", '"', "<", ">", "?"],
-    topRow: ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "[", "]", "\\", ";", "'", ",", ".", "/"]
+    keysCode: ["Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspace", "Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash", "CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter", "ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight", "ControlLeft", "", "AltLeft", "Space", "AltRight", "ControlRight", "ArrowLeft", "ArrowDown", "ArrowRight"],
+    keysEn: ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
+            "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\",
+            "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter", 
+            "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "arrow-up", "right-shift", 
+            "ctrl", "lang", "alt", "spacebar", "alt", "ctrl", "arrow-left", "arrow-down", "arrow-right"],
+    keysRu: ["ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace", 
+            "tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ", "\\", 
+            "caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "enter", 
+            "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "arrow-up", "right-shift", 
+            "ctrl", "lang", "alt", "spacebar", "alt", "ctrl", "arrow-left", "arrow-down", "arrow-right"],
+    shiftKey: ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", 
+            "{", "}", "|", ":", '"', "<", ">", "?"],
+    topRow: ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", 
+            "[", "]", "\\", ";", "'", ",", ".", "/"]
 }
 
 elements = {
@@ -101,18 +111,24 @@ properties = {
     del: false,
     capsLock: false,
     shiftKey: false,
-    voice: false,
-    mute: true
+    cursorPosition: 0
 }
 
     init(){
         console.log(this.properties.language);
+        const parentThis = this;
         
         this.elements.keysContainer.appendChild(this.createKeys());
-        /*this.elements.keys.forEach(function (code, index) {
-            code.setAttribute("data", this.elements.keysData[index]);
-          });*/
-          console.log(this.elements.keys);
+        this.elements.keys.forEach(function (keyButton, index) {
+            keyButton.setAttribute("data", parentThis.keysData.keysCode[index]);
+            keyButton.addEventListener("click", function(){
+                parentThis.elements.textContainer.value = parentThis.properties.value;
+            })
+          });
+          //console.log(this.elements.keys);
+          
+          console.log(this.elements.textContainer);
+          
     }
 
     createKeys(){
@@ -128,7 +144,7 @@ properties = {
         // check starting alphabet for keyboard darwing
         let keysLayout;
         this.properties.language == "en" ? keysLayout = this.keysData.keysEn : keysLayout = this.keysData.keysRu;
-        keysLayout.forEach( function(key) {
+        keysLayout.forEach( key => {
             let keyElement = document.createElement("div");
             keyElement.classList.add("key");
             let dividerElement = 
@@ -146,8 +162,103 @@ properties = {
                         fill="#231F20"
                       /></svg>`;
                     keyElement.addEventListener("click", () => {
+                        
+                        const startOfSelection = parentThis.elements.textContainer.selectionStart;
+                        const endOfSelection = parentThis.elements.textContainer.selectionEnd;
 
-                    })
+                        parentThis.properties.cursorPosition = startOfSelection;
+                        if(startOfSelection == endOfSelection){
+                            parentThis.properties.value = parentThis.properties.value.substring(0, parentThis.properties.cursorPosition -1) + parentThis.properties.value.substring(parentThis.properties.cursorPosition);
+                        } else {
+                            parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + parentThis.properties.value.substring(endOfSelection);
+                        }
+
+                        //parentThis.properties.cursorPosition = startOfSelection;
+                        
+                        parentThis.addText(parentThis.properties.value);
+
+                        parentThis.elements.textContainer.selectionStart = parentThis.properties.cursorPosition-1;
+                        parentThis.elements.textContainer.selectionEnd = parentThis.properties.cursorPosition-1;
+                        console.log(parentThis.properties.value);
+                    });
+                    break;
+
+                
+                case "tab":
+                    keyElement.classList.add("key__halfwide");
+                    keyElement.textContent = "Tab";
+                    keyElement.addEventListener("click", function(){
+                        const startOfSelection = parentThis.elements.textContainer.selectionStart;
+                        const endOfSelection = parentThis.elements.textContainer.selectionEnd;
+                        
+                        parentThis.properties.cursorPosition = startOfSelection;
+
+                        if(startOfSelection == endOfSelection)
+                        parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + "    " + parentThis.properties.value.substring(startOfSelection);
+                        else 
+                        parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + "    " + parentThis.properties.value.substring(endOfSelection);
+                        parentThis.addText(parentThis.properties.value);
+
+                        parentThis.elements.textContainer.selectionStart = parentThis.properties.cursorPosition + 4;
+                        parentThis.elements.textContainer.selectionEnd = parentThis.properties.cursorPosition + 4;
+                    });
+                break;
+
+
+                case "caps":
+                    keyElement.classList.add("key__wide");
+                    keyElement.textContent = "CapsLock";
+                    keyElement.addEventListener("click", function(){
+                        parentThis.toggleCapsLock();
+                        keyElement.classList.toggle("active", parentThis.properties.capsLock);
+                    });
+                break;
+                        
+
+                case "enter":
+                    keyElement.classList.add("key__wide");
+                    keyElement.textContent = "Enter";
+                    keyElement.addEventListener("click", function(){
+                        const startOfSelection = parentThis.elements.textContainer.selectionStart;
+                        const endOfSelection = parentThis.elements.textContainer.selectionEnd;
+                        
+                        parentThis.properties.cursorPosition = startOfSelection;
+                        if(startOfSelection == endOfSelection)
+                        parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + "\n" + parentThis.properties.value.substring(startOfSelection);
+                        else 
+                        parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + "\n" + parentThis.properties.value.substring(endOfSelection);
+                        
+                        parentThis.addText(parentThis.properties.value);
+
+                        parentThis.elements.textContainer.selectionStart = parentThis.properties.cursorPosition+1;
+                        parentThis.elements.textContainer.selectionEnd = parentThis.properties.cursorPosition+1;
+                    });
+                    break;
+
+                default:
+                    keyElement.textContent = key.toLowerCase();
+                    keyElement.classList.add("keyboard-alphabet");
+                    keyElement.classList.add("keyboard-lang");
+                    keyElement.addEventListener("click", function () {
+                        //parentThis.keySound();
+                        const startOfSelection = parentThis.elements.textContainer.selectionStart;
+                        const endOfSelection = parentThis.elements.textContainer.selectionEnd;
+                        
+                        parentThis.properties.cursorPosition = startOfSelection;
+                        if (startOfSelection == endOfSelection) {
+                            parentThis.properties.value = parentThis.properties.value.substring(0, parentThis.properties.cursorPosition) + keyElement.textContent + parentThis.properties.value.substring(parentThis.properties.cursorPosition);
+                        } else {
+                            parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + keyElement.textContent + parentThis.properties.value.substring(endOfSelection);
+                        }
+
+                        parentThis.addText(parentThis.properties.value);
+
+                    parentThis.elements.textContainer.selectionStart = parentThis.properties.cursorPosition + 1;
+                    parentThis.elements.textContainer.selectionEnd = parentThis.properties.cursorPosition + 1;
+                    console.log(parentThis.properties.value);
+                });
+                break;
+
             };
 
 
@@ -164,7 +275,7 @@ properties = {
                 fragment.appendChild(breakElement);
               }
         });
-      return fragment;
+        return fragment;
     }
 
     cursorPosition(){
@@ -180,6 +291,15 @@ properties = {
               return clone.text.length;
          }
          return 0;
+    }
+
+    toggleCapsLock(){
+
+    }
+
+    addText(currentValue){
+        this.elements.textContainer.focus();
+        this.elements.textContainer.value = currentValue;
     }
 
 };
