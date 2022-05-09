@@ -76,14 +76,18 @@ textContainer.focus();
 /* create main ends ==================================== */
 
 class Keyboard {
-    constructor(language, _keysContainer = keyboardContainer, _textContainer = textContainer){
+    constructor(language = "en", _keysContainer = keyboardContainer, _textContainer = textContainer){
         this.properties.language = language;
         this.elements.keysContainer = _keysContainer;
         this.elements.textContainer = _textContainer;
     }
 
 keysData = {
-    keysCode: ["Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspace", "Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash", "CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter", "ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight", "ControlLeft", "", "AltLeft", "Space", "AltRight", "ControlRight", "ArrowLeft", "ArrowDown", "ArrowRight"],
+    keysCode: ["Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspace", 
+            "Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash", 
+            "CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter", 
+            "ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight", 
+            "ControlLeft", "", "AltLeft", "Space", "AltRight", "ControlRight", "ArrowLeft", "ArrowDown", "ArrowRight"],
     keysEn: ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
             "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\",
             "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter", 
@@ -103,7 +107,8 @@ keysData = {
 elements = {
     keysContainer: null,
     textContainer: null,
-    keys: []
+    keys: [],
+    tempArr: []
 }
 
 properties = {
@@ -115,7 +120,7 @@ properties = {
 }
 
     init(){
-        console.log(this.properties.language);
+        //console.log(this.properties.language);
         const parentThis = this;
         
         this.elements.keysContainer.appendChild(this.createKeys());
@@ -124,16 +129,16 @@ properties = {
             keyButton.addEventListener("click", function(){
                 parentThis.elements.textContainer.value = parentThis.properties.value;
             })
-          });
+        });
+        this.keyDown();
+        this.keyUp();
           //console.log(this.elements.keys);
-          
-          console.log(this.elements.textContainer);
-          
+        //console.log(this.elements.textContainer);
+        //console.log(parentThis.elements.keys[28]);
     }
 
     createKeys(){
         const parentThis = this;// save main context for forEach
-
         const fragment = document.createDocumentFragment();
 
         // create arrow svg
@@ -183,11 +188,11 @@ properties = {
                     });
                     break;
 
-                
                 case "tab":
                     keyElement.classList.add("key__halfwide");
                     keyElement.textContent = "Tab";
-                    keyElement.addEventListener("click", function(){
+                    keyElement.addEventListener("click", function(e){
+                        e.preventDefault();
                         const startOfSelection = parentThis.elements.textContainer.selectionStart;
                         const endOfSelection = parentThis.elements.textContainer.selectionEnd;
                         
@@ -204,17 +209,18 @@ properties = {
                     });
                 break;
 
-
+                    // NOT FINISHED
                 case "caps":
                     keyElement.classList.add("key__wide");
                     keyElement.textContent = "CapsLock";
                     keyElement.addEventListener("click", function(){
                         parentThis.toggleCapsLock();
-                        keyElement.classList.toggle("active", parentThis.properties.capsLock);
+                        this.classList.toggle("active", parentThis.properties.capsLock);
+                        
+                        //console.log(parentThis.properties.capsLock);
                     });
                 break;
                         
-
                 case "enter":
                     keyElement.classList.add("key__wide");
                     keyElement.textContent = "Enter";
@@ -235,6 +241,121 @@ properties = {
                     });
                     break;
 
+                case "shift":
+                    keyElement.classList.add("key__halfwide");
+                    keyElement.textContent = "Shift";
+                    keyElement.addEventListener("click", function () {
+                        //parentThis._toggleShiftKey();
+                    });
+                break;
+                case "right-shift":
+                    keyElement.textContent = "Shift";
+                    keyElement.addEventListener("click", function () {
+                        //parentThis._toggleShiftKey();
+                    });
+                break;
+
+                case "ctrl":
+                    keyElement.classList.add("key__halfwide");
+                    keyElement.textContent = "Ctrl";
+                    keyElement.addEventListener("click", function () {
+                        
+                    });
+                break;
+                case "alt":
+                    keyElement.textContent = "Alt";
+                    keyElement.addEventListener("click", function () {
+                        
+                    });
+                break;
+
+                case "lang":
+                    keyElement.textContent = this.properties.language.toUpperCase();
+                    keyElement.addEventListener("click", function () {
+                        if(parentThis.properties.language == "en"){
+                            keyElement.textContent = "RU";
+                            parentThis.properties.language = "ru";
+                        } else {
+                            keyElement.textContent = "EN";
+                            parentThis.properties.language = "en";
+                        }
+                        parentThis.drawLanguageKeys();
+                    });
+                break;
+
+                case "spacebar":
+                    keyElement.classList.add("key__extrawide");
+                    keyElement.textContent = "Backspace";
+                    keyElement.addEventListener("click", function(){
+                        const startOfSelection = parentThis.elements.textContainer.selectionStart;
+                        const endOfSelection = parentThis.elements.textContainer.selectionEnd;
+                        
+                        parentThis.properties.cursorPosition = startOfSelection;
+    
+                        if(startOfSelection == endOfSelection)
+                            parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + " " + parentThis.properties.value.substring(startOfSelection);
+                        else 
+                            parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + " " + parentThis.properties.value.substring(endOfSelection);
+                        parentThis.addText(parentThis.properties.value);
+    
+                        parentThis.elements.textContainer.selectionStart = parentThis.properties.cursorPosition + 1;
+                        parentThis.elements.textContainer.selectionEnd = parentThis.properties.cursorPosition + 1;
+                    });
+                break;
+
+                // arrowup & arrowdown not implemented
+                case "arrow-up":
+                    keyElement.classList.add("arrowkey", "keyup");
+                    keyElement.innerHTML = createArrow();
+                    keyElement.addEventListener("click", function () {
+                        const startOfSelection = parentThis.elements.textContainer.selectionStart;
+                        const endOfSelection = parentThis.elements.textContainer.selectionEnd;
+                        const lengthOfText = parentThis.elements.textContainer.textLength;
+
+                        if(startOfSelection == endOfSelection && startOfSelection == lengthOfText){
+
+                        }
+                        parentThis.elements.textContainer.focus();
+                        console.log(parentThis.elements.textContainer);
+                    });
+                break;
+                case "arrow-left":
+                    keyElement.classList.add("arrowkey", "keyleft");
+                    keyElement.innerHTML = createArrow();
+
+                    keyElement.addEventListener("click", function () {
+                        parentThis.elements.textContainer.selectionStart ? parentThis.elements.textContainer.selectionStart-- : 0;
+                        parentThis.elements.textContainer.selectionEnd ? parentThis.elements.textContainer.selectionEnd-- : 0;
+                        parentThis.elements.textContainer.focus();
+                });
+                break;
+                case "arrow-right":
+                    keyElement.classList.add("arrowkey", "keyright");
+                    keyElement.innerHTML = createArrow();
+
+                    keyElement.addEventListener("click", function () {
+                        parentThis.elements.textContainer.selectionDirection = "backward";
+
+                        parentThis.elements.textContainer.selectionEnd < parentThis.elements.textContainer.textLength ? 
+                        parentThis.elements.textContainer.selectionEnd++ : 
+                        parentThis.elements.textContainer.selectionEnd = parentThis.elements.textContainer.textLength;
+
+                        parentThis.elements.textContainer.selectionStart < parentThis.elements.textContainer.textLength ? 
+                        parentThis.elements.textContainer.selectionStart++ : 
+                        parentThis.elements.textContainer.selectionStart = parentThis.elements.textContainer.textLength;
+
+                        parentThis.elements.textContainer.focus();
+                });
+                break;
+                case "arrow-down":
+                    keyElement.classList.add("arrowkey", "keydown");
+                    keyElement.innerHTML = createArrow();
+                    keyElement.addEventListener("click", function () {
+                        parentThis.elements.textContainer.focus();
+                        console.log(parentThis.elements.textContainer);
+                    });
+                break;
+
                 default:
                     keyElement.textContent = key.toLowerCase();
                     keyElement.classList.add("keyboard-alphabet");
@@ -246,7 +367,7 @@ properties = {
                         
                         parentThis.properties.cursorPosition = startOfSelection;
                         if (startOfSelection == endOfSelection) {
-                            parentThis.properties.value = parentThis.properties.value.substring(0, parentThis.properties.cursorPosition) + keyElement.textContent + parentThis.properties.value.substring(parentThis.properties.cursorPosition);
+                            parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + keyElement.textContent + parentThis.properties.value.substring(startOfSelection);
                         } else {
                             parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + keyElement.textContent + parentThis.properties.value.substring(endOfSelection);
                         }
@@ -258,11 +379,7 @@ properties = {
                     console.log(parentThis.properties.value);
                 });
                 break;
-
             };
-
-
-
             fragment.appendChild(keyElement);
 
             // create keys array for EventListener
@@ -278,28 +395,219 @@ properties = {
         return fragment;
     }
 
-    cursorPosition(){
-        const obj = this.textContainer;
-        obj.focus();
-         if(obj.selectionStart) return obj.selectionStart;
-         else if (document.selection) {
-              let sel = document.selection.createRange();
-              let clone = sel.duplicate();
-              sel.collapse(true);
-              clone.moveToElementText(obj);
-              clone.setEndPoint('EndToEnd', sel);
-              return clone.text.length;
-         }
-         return 0;
-    }
 
-    toggleCapsLock(){
-
-    }
 
     addText(currentValue){
         this.elements.textContainer.focus();
         this.elements.textContainer.value = currentValue;
+    }
+
+    drawLanguageKeys(){
+        lang = this.properties.language;
+
+        const parentThis = this;
+
+        this.properties.language == "en" ? this.properties.language == "ru" : this.properties.language == "en";
+    
+        let _iteratorNormalCompletion4 = true;
+        let _didIteratorError4 = false;
+        let _iteratorError4 = undefined;
+    
+        try {
+          let _loop2 = function _loop2() {
+            let key = _step4.value;
+            let keyFilters = key.classList.contains("keyboard-lang");
+    
+            if (keyFilters && !parentThis.properties.language) {
+              parentThis.elements.tempArr.push(key.textContent);
+    
+              let indexTempArr = parentThis.elements.tempArr.indexOf(key.textContent);
+    
+              parentThis.keysData.keysRu.filter(function (item) {
+                return item.length < 2;
+              }).forEach(function (elem, index) {
+                indexTempArr === index ? key.textContent = elem : key.textContent;
+    
+                if (parentThis.properties.capsLock) {
+                  key.textContent = key.textContent.toUpperCase();
+                } else if (parentThis.properties.shiftKey) {
+                  key.textContent = key.textContent.toUpperCase();
+                  parentThis.toggleShiftKey();
+                  parentThis.properties.shiftKey = !parentThis.properties.shiftKey;
+    
+                  parentThis.elements.keys[41].classList.remove("active");
+                }
+              });
+    
+              parentThis.elements.tempArr.length === 47 ? parentThis.elements.tempArr = [] : parentThis.elements.tempArr;
+            } else if (keyFilters && parentThis.properties.language) {
+              parentThis.elements.tempArr.push(key.textContent);
+    
+              let _indexTempArr = parentThis.elements.tempArr.indexOf(key.textContent);
+    
+              parentThis.keysData.keysEn.filter(function (item) {
+                return item.length < 2;
+              }).forEach(function (elem, index) {
+                _indexTempArr === index ? key.textContent = elem : key.textContent;
+    
+                if (parentThis.properties.capsLock) {
+                  key.textContent = key.textContent.toUpperCase();
+                } else if (parentThis.properties.shiftKey) {
+                  key.textContent = key.textContent.toUpperCase();
+                  parentThis.toggleShiftKey();
+                  parentThis.properties.shiftKey = !parentThis.properties.shiftKey;
+    
+                  parentThis.elements.keys[41].classList.remove("active");
+                }
+              });
+    
+              parentThis.elements.tempArr.length === 47 ? parentThis.elements.tempArr = [] : parentThis.elements.tempArr;
+            }
+          };
+    
+          for (var _iterator4 = parentThis.elements.keys[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            _loop2();
+          }
+        } catch (err) {
+          _didIteratorError4 = true;
+          _iteratorError4 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+              _iterator4["return"]();
+            }
+          } finally {
+            if (_didIteratorError4) {
+              throw _iteratorError4;
+            }
+          }
+        }
+    }
+
+    toggleCapsLock(){
+        this.properties.capsLock = !this.properties.capsLock;
+        const parentThis = this;
+
+        this.elements.keys.forEach( item => {
+            if(item.classList.contains("keyboard-alphabet") && parentThis.properties.capsLock)
+            item.textContent = item.textContent.toUpperCase();
+            else if(item.classList.contains("keyboard-alphabet"))
+            item.textContent = item.textContent.toLowerCase();
+        });
+
+        /*
+        if (this.properties.shiftKey) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+      
+            try {
+              for (var _iterator = this.elements.keys[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var key = _step.value;
+      
+                if (key.childElementCount === 0 && key.classList.contains("keyboard-alphabet")) {
+                  key.textContent = this.properties.capsLock ? key.textContent.toLowerCase() : key.textContent.toUpperCase();
+                }
+              }
+            } catch (err) {
+              _didIteratorError = true;
+              _iteratorError = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+                  _iterator["return"]();
+                }
+              } finally {
+                if (_didIteratorError) {
+                  throw _iteratorError;
+                }
+              }
+            }
+          } else {
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+      
+            try {
+              for (var _iterator2 = this.elements.keys[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var _key = _step2.value;
+      
+                if (_key.childElementCount === 0 && _key.classList.contains("keyboard-alphabet")) {
+                  _key.textContent = this.properties.capsLock ? _key.textContent.toUpperCase() : _key.textContent.toLowerCase();
+                }
+              }
+            } catch (err) {
+              _didIteratorError2 = true;
+              _iteratorError2 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+                  _iterator2["return"]();
+                }
+              } finally {
+                if (_didIteratorError2) {
+                  throw _iteratorError2;
+                }
+              }
+            }
+          }*/
+    }
+
+    toggleShiftKey(){
+
+    }
+
+
+    keyDown(){
+        const parentThis = this;
+        this.elements.textContainer.focus();
+
+        document.addEventListener("keydown", (e) => {
+            parentThis.elements.keys.forEach( item => {
+                const keyAttribute = item.getAttribute("data");
+
+                switch(e.code){
+                    case keyAttribute:
+                        item.classList.add("active");
+                    break;
+                    
+                    case keyAttribute && (keyAttribute == "ShiftLeft" || keyAttribute == "ShiftRight"):
+                        parentThis.toggleShiftKey();    
+                    break;
+
+
+                }
+                /*if(e.code == keyAttribute){
+                    item.classList.add("active");
+                }*/
+            })
+        })
+
+    }
+
+    keyUp(){
+        const parentThis = this;
+        
+        document.addEventListener("keyup", (e) => {
+            console.log(e.code);
+            console.log(e.key);
+            this.elements.textContainer.focus();
+            parentThis.elements.keys.forEach( item => {
+                const keyAttribute = item.getAttribute("data");
+                const alphabetItem = item.classList.contains("keyboard-alphabet");
+
+                if( e.code == keyAttribute)
+                    item.classList.remove("active");
+
+                if(e.code == keyAttribute && (alphabetItem || keyAttribute == "Space"))
+                    parentThis.properties.value += e.key;
+
+                if( e.code == keyAttribute && keyAttribute === "CapsLock"){
+                    parentThis.toggleCapsLock();
+                    parentThis.elements.keys[28].classList.toggle("active", parentThis.properties.capsLock);
+                }
+            });
+        });
     }
 
 };

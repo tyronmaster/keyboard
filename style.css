@@ -263,7 +263,7 @@ body.dark .key {
   align-items: center;
   /*background: var(--color-light);*/
   background: var(--gradient);
-  transition: 0.5s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 .key:hover,
 .key:active,
@@ -272,7 +272,7 @@ body.dark .key {
     -2px -2px 4px rgba(16, 250, 250, 0.1);
   color: var(--color-light-aqua);
   border: 1px solid var(--color-light-aqua);
-  transition: 0.5s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 .key__halfwide {
   width: calc((var(--base-width) / 100% * 1.5) + var(--button-gap));
@@ -291,12 +291,12 @@ body.dark .key {
 .arrowkey svg path,
 .backspace svg path {
   fill: var(--color-dark-l);
-  transition: 0.5s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 .arrowkey:hover svg path,
 .backspace:hover svg path {
   fill: var(--color-light-aqua);
-  transition: 0.5s ease-in-out;
+  transition: 0.2s ease-in-out;
 }
 
 .keyleft svg {
