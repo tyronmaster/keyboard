@@ -83,7 +83,11 @@ class Keyboard {
     }
 
 keysData = {
-    keysCode: ["Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspace", "Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash", "CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter", "ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight", "ControlLeft", "", "AltLeft", "Space", "AltRight", "ControlRight", "ArrowLeft", "ArrowDown", "ArrowRight"],
+    keysCode: ["Backquote", "Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "Backspace", 
+            "Tab", "KeyQ", "KeyW", "KeyE", "KeyR", "KeyT", "KeyY", "KeyU", "KeyI", "KeyO", "KeyP", "BracketLeft", "BracketRight", "Backslash", 
+            "CapsLock", "KeyA", "KeyS", "KeyD", "KeyF", "KeyG", "KeyH", "KeyJ", "KeyK", "KeyL", "Semicolon", "Quote", "Enter", 
+            "ShiftLeft", "KeyZ", "KeyX", "KeyC", "KeyV", "KeyB", "KeyN", "KeyM", "Comma", "Period", "Slash", "ArrowUp", "ShiftRight", 
+            "ControlLeft", "", "AltLeft", "Space", "AltRight", "ControlRight", "ArrowLeft", "ArrowDown", "ArrowRight"],
     keysEn: ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
             "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\",
             "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter", 
@@ -124,16 +128,13 @@ properties = {
             keyButton.addEventListener("click", function(){
                 parentThis.elements.textContainer.value = parentThis.properties.value;
             })
-          });
+        });
           //console.log(this.elements.keys);
-          
-          console.log(this.elements.textContainer);
-          
+        console.log(this.elements.textContainer);
     }
 
     createKeys(){
         const parentThis = this;// save main context for forEach
-
         const fragment = document.createDocumentFragment();
 
         // create arrow svg
@@ -204,13 +205,15 @@ properties = {
                     });
                 break;
 
-
+                    // NOT FINISHED
                 case "caps":
                     keyElement.classList.add("key__wide");
                     keyElement.textContent = "CapsLock";
                     keyElement.addEventListener("click", function(){
                         parentThis.toggleCapsLock();
-                        keyElement.classList.toggle("active", parentThis.properties.capsLock);
+                        this.classList.toggle("active", parentThis.properties.capsLock);
+                        
+                        console.log(parentThis.properties.capsLock);
                     });
                 break;
                         
@@ -233,6 +236,28 @@ properties = {
                         parentThis.elements.textContainer.selectionStart = parentThis.properties.cursorPosition+1;
                         parentThis.elements.textContainer.selectionEnd = parentThis.properties.cursorPosition+1;
                     });
+                    break;
+
+
+
+                    case "spacebar":
+                        keyElement.classList.add("key__extrawide");
+                        keyElement.textContent = "Backspace";
+                        keyElement.addEventListener("click", function(){
+                            const startOfSelection = parentThis.elements.textContainer.selectionStart;
+                            const endOfSelection = parentThis.elements.textContainer.selectionEnd;
+                            
+                            parentThis.properties.cursorPosition = startOfSelection;
+    
+                            if(startOfSelection == endOfSelection)
+                                parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + " " + parentThis.properties.value.substring(startOfSelection);
+                            else 
+                                parentThis.properties.value = parentThis.properties.value.substring(0, startOfSelection) + " " + parentThis.properties.value.substring(endOfSelection);
+                            parentThis.addText(parentThis.properties.value);
+    
+                            parentThis.elements.textContainer.selectionStart = parentThis.properties.cursorPosition + 1;
+                            parentThis.elements.textContainer.selectionEnd = parentThis.properties.cursorPosition + 1;
+                        });
                     break;
 
                 default:
@@ -294,6 +319,7 @@ properties = {
     }
 
     toggleCapsLock(){
+        this.properties.capsLock = !this.properties.capsLock;
 
     }
 
