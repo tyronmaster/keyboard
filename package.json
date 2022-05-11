@@ -1,0 +1,30 @@
+{
+  "name": "keyboard",
+  "version": "1.0.0",
+  "description": "virtual keyboard task",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint \"*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tyronmaster/keyboard.git"
+  },
+  "keywords": [
+    "keyboard"
+  ],
+  "author": "DegArt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tyronmaster/keyboard/issues"
+  },
+  "homepage": "https://github.com/tyronmaster/keyboard#readme",
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0"
+  }
+}
