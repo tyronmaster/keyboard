@@ -219,7 +219,7 @@ class Keyboard {
           keyElement.textContent = "CapsLock";
           keyElement.addEventListener("click", () => {
             parentThis.toggleCapsLock();
-            this.classList.toggle("active", parentThis.properties.capsLock);
+            keyElement.classList.toggle("active", parentThis.properties.capsLock);
           });
           break;
 
@@ -478,7 +478,9 @@ class Keyboard {
     const parentThis = this;
 
     document.addEventListener("keyup", (e) => {
-      // console.log(e.code);
+      e.preventDefault();
+      console.log(e.code);
+      console.log(e);
       // console.log(e.key);
       this.elements.textContainer.focus();
       parentThis.elements.keys.forEach((item) => {
