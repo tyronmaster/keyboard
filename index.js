@@ -452,9 +452,10 @@ class Keyboard {
 
   keyDown() {
     const parentThis = this;
-    this.elements.textContainer.focus();
 
     document.addEventListener("keydown", (e) => {
+      // e.preventDefault();
+      this.elements.textContainer.focus();
       parentThis.elements.keys.forEach((item) => {
         const keyAttribute = item.getAttribute("data");
 
@@ -465,6 +466,14 @@ class Keyboard {
 
           case keyAttribute && (keyAttribute === "ShiftLeft" || keyAttribute === "ShiftRight"):
             parentThis.toggleShiftKey();
+            break;
+
+          case "Tab":
+            e.preventDefault();
+            break;
+
+          case "AltLeft":
+            e.preventDefault();
             break;
 
           default:
